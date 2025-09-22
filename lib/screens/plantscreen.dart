@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:plant_app/providers/plantprovider.dart';
+import 'package:plant_app/widgets/myappbar.dart';
 import '../widgets/plantcard.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 class PlantScreen extends ConsumerWidget {
 
   const PlantScreen({super.key});
@@ -24,7 +25,7 @@ class PlantScreen extends ConsumerWidget {
               Icon(
                 Icons.local_florist,
                 size: 100,
-                color: Colors.green,
+                color: Color.fromARGB(255, 0, 167, 107),
               ),
               SizedBox(height: 20),
               Text(
@@ -32,7 +33,7 @@ class PlantScreen extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 0, 167, 107),
                 ),
               ),
               SizedBox(height: 10),
@@ -40,7 +41,7 @@ class PlantScreen extends ConsumerWidget {
                 'Scatta una foto alle tua piante e inizia!.',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 0, 167, 107),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -52,18 +53,7 @@ class PlantScreen extends ConsumerWidget {
     }
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      appBar: AppBar(
-       centerTitle: true,
-        backgroundColor: Colors.white,
-        title: Text(
-          "App prova",
-          textAlign: TextAlign.center,
-          style:  GoogleFonts.roboto(
-            fontWeight: FontWeight.bold,
-            fontSize: 28,
-          ),
-        ),
-      ),
+      appBar: MyAppBar(title: 'Prova app'),
       body: SafeArea(
 
           child: ListView.separated(
@@ -97,10 +87,7 @@ class PlantScreen extends ConsumerWidget {
                     );
                   },
                   child: PlantCard(
-                    imageplant: currentPlant.image,
-                    scientificName: currentPlant.scientificname,
-                    namePlant: currentPlant.name,
-                    description: currentPlant.description
+                    plant: currentPlant,
                   ),
               );
             },

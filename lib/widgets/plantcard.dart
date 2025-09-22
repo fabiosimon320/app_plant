@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/models/plant.dart';
+import 'package:plant_app/screens/profileplant.dart';
 
 class PlantCard extends StatelessWidget {
-  final ImageProvider imageplant;
-  final String namePlant;
-  final String scientificName;
-  final String description;
+  final Plant plant;
 
   const PlantCard({
     super.key,
-    required this.imageplant,
-    required this.scientificName,
-    required this.namePlant,
-    required this.description,
+    required this.plant,
   });
 
   @override
@@ -19,7 +15,6 @@ class PlantCard extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Row(
-
       children: [
         SizedBox( width: screenWidth * 0.07),
         Container(
@@ -35,7 +30,7 @@ class PlantCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image(
-                    image: imageplant,
+                    image: plant.image,
                     width: 120,
                     height: 120,
                     fit: BoxFit.cover
@@ -50,7 +45,7 @@ class PlantCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:  [
                     Text(
-                      namePlant,
+                      plant.name,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -59,7 +54,7 @@ class PlantCard extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      scientificName,
+                      plant.scientificname,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black54,
@@ -72,7 +67,12 @@ class PlantCard extends StatelessWidget {
               // Pulsante freccia
               IconButton(
                 onPressed: () {
-                  // azione quando clicchi
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlantProfilePage(plant: plant),
+                    ),
+                  );
                 },
                 icon: Icon(Icons.arrow_forward, color: Colors.black54),
               ),
