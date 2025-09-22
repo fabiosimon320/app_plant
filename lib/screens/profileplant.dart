@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:plant_app/providers/followedplantprovider.dart';
 import 'package:plant_app/widgets/infocard.dart';
 import 'package:plant_app/widgets/myappbar.dart';
 
 import '../models/plant.dart';
 
-class PlantProfilePage extends StatelessWidget {
+class PlantProfilePage extends ConsumerWidget {
   final Plant plant;
 
   const PlantProfilePage({super.key, required this.plant});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     
     
@@ -78,7 +80,7 @@ class PlantProfilePage extends StatelessWidget {
             InfoCard(
               icon: Icons.thermostat,
               title: 'Acqua',
-              value: "${plant.waterday} volte a settimana",
+              value: "Ogni ${plant.waterday} giorni",
             ),
             const SizedBox(height: 8),
             InfoCard(
@@ -97,10 +99,14 @@ class PlantProfilePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 0, 167, 107),
               ),
-              onPressed: () {  },
+              onPressed:(){
+                ref.read(followedPlantsProvider.notifier).followPlant(plant);
+              },
               child: Text(
-                  'Aggiungi trattamento pianta al calendario!',
-                  style: GoogleFonts.roboto(
+                ref.watch(followedPlantsProvider).contains(plant.id)
+                    ? 'Pianta già seguita'
+                    : 'Aggiungi trattamento pianta al calendario!',
+                style: GoogleFonts.roboto(
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
                   color: Colors.white,
