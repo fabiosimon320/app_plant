@@ -8,86 +8,165 @@ class PlantNotifier extends StateNotifier<List<Plant>> {
   Plant(
   name: "Rosa",
   scientificname: "Rosa rubiginosa",
+  description:
+  "La Rosa rubiginosa è una pianta arbustiva decidua che cresce fino a 2-3 metri. "
+  "Presenta rami spinosi, foglie composte e fiori profumati di colore rosa chiaro, "
+  "seguiti da frutti rossi chiamati cinorrodi. Fiorisce tra primavera e estate ed è apprezzata "
+  "per la sua bellezza e il profumo intenso.",
+  waterday: 3, // ogni 3 giorni
+  sunlight: "Luce indiretta o parziale", // esposizione ideale
+  soiltype: "Ben drenato, leggermente acido o neutro blablalbalbalbalbalbalbalblablabal", // tipo di terreno
   image: const NetworkImage(
   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
-  ),
-        description:
-  "La rosa è una pianta ornamentale molto amata, con fiori eleganti e profumati. Cresce in cespugli di dimensioni variabili e produce petali dai colori che vanno dal bianco al rosso intenso.",
+    ),
   ),
   Plant(
-  name: "Girasole",
-  scientificname: "Helianthus annuus",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1504595403659-9088ce801e29?w=600",
-  ),
+  name: "Ficus",
+  scientificname: "Ficus elastica",
   description:
-  "Il girasole è caratterizzato da grandi fiori gialli che seguono il sole durante il giorno. Può raggiungere i 3 metri di altezza ed è coltivato anche per i suoi semi commestibili.",
-  ),
-  Plant(
-  name: "Lavanda",
-  scientificname: "Lavandula angustifolia",
+  "Il Ficus elastica è una pianta sempreverde con foglie grandi, lucide e coriacee. "
+  "Può raggiungere diversi metri in altezza se coltivato in vaso o in terra.",
+  waterday: 7,
+  sunlight: "Luce indiretta",
+  soiltype: "Terriccio universale ben drenato",
   image: const NetworkImage(
-  "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600",
+  "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600"),
   ),
-  description:
-  "La lavanda è una pianta aromatica con fiori viola intensi e profumati. Viene spesso usata per oli essenziali, profumi e tisane. Predilige climi caldi e terreni ben drenati.",
-  ),
-  Plant(
-  name: "Rosa",
-  scientificname: "Rosa rubiginosa",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
-  ),
-  description:
-  "La rosa è una pianta ornamentale molto amata, con fiori eleganti e profumati. Cresce in cespugli di dimensioni variabili e produce petali dai colori che vanno dal bianco al rosso intenso.",
-  ),
-  Plant(
-  name: "Girasole",
-  scientificname: "Helianthus annuus",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1504595403659-9088ce801e29?w=600",
-  ),
-  description:
-  "Il girasole è caratterizzato da grandi fiori gialli che seguono il sole durante il giorno. Può raggiungere i 3 metri di altezza ed è coltivato anche per i suoi semi commestibili.",
-  ),
-  Plant(
-  name: "Lavanda",
-  scientificname: "Lavandula angustifolia",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600",
-  ),
-  description:
-  "La lavanda è una pianta aromatica con fiori viola intensi e profumati. Viene spesso usata per oli essenziali, profumi e tisane. Predilige climi caldi e terreni ben drenati.",
-  ),
-  Plant(
-  name: "Rosa",
-  scientificname: "Rosa rubiginosa",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
-  ),
-  description:
-  "La rosa è una pianta ornamentale molto amata, con fiori eleganti e profumati. Cresce in cespugli di dimensioni variabili e produce petali dai colori che vanno dal bianco al rosso intenso.",
-  ),
-  Plant(
-  name: "Girasole",
-  scientificname: "Helianthus annuus",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1504595403659-9088ce801e29?w=600",
-  ),
-  description:
-  "Il girasole è caratterizzato da grandi fiori gialli che seguono il sole durante il giorno. Può raggiungere i 3 metri di altezza ed è coltivato anche per i suoi semi commestibili.",
-  ),
-  Plant(
-  name: "Lavanda",
-  scientificname: "Lavandula angustifolia",
-  image: const NetworkImage(
-  "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600",
-  ),
-  description:
-  "La lavanda è una pianta aromatica con fiori viola intensi e profumati. Viene spesso usata per oli essenziali, profumi e tisane. Predilige climi caldi e terreni ben drenati.",
-  ),
-
-
+    Plant(
+      name: "Rosa",
+      scientificname: "Rosa rubiginosa",
+      description:
+      "La Rosa rubiginosa è una pianta arbustiva decidua che cresce fino a 2-3 metri. "
+          "Presenta rami spinosi, foglie composte e fiori profumati di colore rosa chiaro, "
+          "seguiti da frutti rossi chiamati cinorrodi. Fiorisce tra primavera e estate ed è apprezzata "
+          "per la sua bellezza e il profumo intenso.",
+      waterday: 3, // ogni 3 giorni
+      sunlight: "Luce indiretta o parziale", // esposizione ideale
+      soiltype: "Ben drenato, leggermente acido o neutro", // tipo di terreno
+      image: const NetworkImage(
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
+      ),
+    ),
+    Plant(
+      name: "Ficus",
+      scientificname: "Ficus elastica",
+      description:
+      "Il Ficus elastica è una pianta sempreverde con foglie grandi, lucide e coriacee. "
+          "Può raggiungere diversi metri in altezza se coltivato in vaso o in terra.",
+      waterday: 7,
+      sunlight: "Luce indiretta",
+      soiltype: "Terriccio universale ben drenato",
+      image: const NetworkImage(
+          "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600"),
+    ),
+    Plant(
+      name: "Rosa",
+      scientificname: "Rosa rubiginosa",
+      description:
+      "La Rosa rubiginosa è una pianta arbustiva decidua che cresce fino a 2-3 metri. "
+          "Presenta rami spinosi, foglie composte e fiori profumati di colore rosa chiaro, "
+          "seguiti da frutti rossi chiamati cinorrodi. Fiorisce tra primavera e estate ed è apprezzata "
+          "per la sua bellezza e il profumo intenso.",
+      waterday: 3, // ogni 3 giorni
+      sunlight: "Luce indiretta o parziale", // esposizione ideale
+      soiltype: "Ben drenato, leggermente acido o neutro", // tipo di terreno
+      image: const NetworkImage(
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
+      ),
+    ),
+    Plant(
+      name: "Ficus",
+      scientificname: "Ficus elastica",
+      description:
+      "Il Ficus elastica è una pianta sempreverde con foglie grandi, lucide e coriacee. "
+          "Può raggiungere diversi metri in altezza se coltivato in vaso o in terra.",
+      waterday: 7,
+      sunlight: "Luce indiretta",
+      soiltype: "Terriccio universale ben drenato",
+      image: const NetworkImage(
+          "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600"),
+    ),
+    Plant(
+      name: "Rosa",
+      scientificname: "Rosa rubiginosa",
+      description:
+      "La Rosa rubiginosa è una pianta arbustiva decidua che cresce fino a 2-3 metri. "
+          "Presenta rami spinosi, foglie composte e fiori profumati di colore rosa chiaro, "
+          "seguiti da frutti rossi chiamati cinorrodi. Fiorisce tra primavera e estate ed è apprezzata "
+          "per la sua bellezza e il profumo intenso.",
+      waterday: 3, // ogni 3 giorni
+      sunlight: "Luce indiretta o parziale", // esposizione ideale
+      soiltype: "Ben drenato, leggermente acido o neutro", // tipo di terreno
+      image: const NetworkImage(
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
+      ),
+    ),
+    Plant(
+      name: "Ficus",
+      scientificname: "Ficus elastica",
+      description:
+      "Il Ficus elastica è una pianta sempreverde con foglie grandi, lucide e coriacee. "
+          "Può raggiungere diversi metri in altezza se coltivato in vaso o in terra.",
+      waterday: 7,
+      sunlight: "Luce indiretta",
+      soiltype: "Terriccio universale ben drenato",
+      image: const NetworkImage(
+          "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600"),
+    ),
+    Plant(
+      name: "Rosa",
+      scientificname: "Rosa rubiginosa",
+      description:
+      "La Rosa rubiginosa è una pianta arbustiva decidua che cresce fino a 2-3 metri. "
+          "Presenta rami spinosi, foglie composte e fiori profumati di colore rosa chiaro, "
+          "seguiti da frutti rossi chiamati cinorrodi. Fiorisce tra primavera e estate ed è apprezzata "
+          "per la sua bellezza e il profumo intenso.",
+      waterday: 3, // ogni 3 giorni
+      sunlight: "Luce indiretta o parziale", // esposizione ideale
+      soiltype: "Ben drenato, leggermente acido o neutro", // tipo di terreno
+      image: const NetworkImage(
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
+      ),
+    ),
+    Plant(
+      name: "Ficus",
+      scientificname: "Ficus elastica",
+      description:
+      "Il Ficus elastica è una pianta sempreverde con foglie grandi, lucide e coriacee. "
+          "Può raggiungere diversi metri in altezza se coltivato in vaso o in terra.",
+      waterday: 7,
+      sunlight: "Luce indiretta",
+      soiltype: "Terriccio universale ben drenato",
+      image: const NetworkImage(
+          "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600"),
+    ),
+    Plant(
+      name: "Rosa",
+      scientificname: "Rosa rubiginosa",
+      description:
+      "La Rosa rubiginosa è una pianta arbustiva decidua che cresce fino a 2-3 metri. "
+          "Presenta rami spinosi, foglie composte e fiori profumati di colore rosa chiaro, "
+          "seguiti da frutti rossi chiamati cinorrodi. Fiorisce tra primavera e estate ed è apprezzata "
+          "per la sua bellezza e il profumo intenso.",
+      waterday: 3, // ogni 3 giorni
+      sunlight: "Luce indiretta o parziale", // esposizione ideale
+      soiltype: "Ben drenato, leggermente acido o neutro", // tipo di terreno
+      image: const NetworkImage(
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600",
+      ),
+    ),
+    Plant(
+      name: "Ficus",
+      scientificname: "Ficus elastica",
+      description:
+      "Il Ficus elastica è una pianta sempreverde con foglie grandi, lucide e coriacee. "
+          "Può raggiungere diversi metri in altezza se coltivato in vaso o in terra.",
+      waterday: 7,
+      sunlight: "Luce indiretta",
+      soiltype: "Terriccio universale ben drenato",
+      image: const NetworkImage(
+          "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600"),
+    ),
   ]);
 
   void addPlant(Plant plant) {
