@@ -17,7 +17,7 @@ class MyBottomNavigationBar extends StatelessWidget {
             item: ItemConfig(
               icon: Icon(Icons.home),
               title: "Le tue piante",
-              activeForegroundColor: Colors.green,
+              activeForegroundColor: Color.fromARGB(255, 0, 167, 107),
             ),
           ),
           PersistentTabConfig(
@@ -25,7 +25,16 @@ class MyBottomNavigationBar extends StatelessWidget {
             item: ItemConfig(
               icon: Icon(Icons.add_a_photo),
               title: "Aggiungi pianta",
-              activeForegroundColor: Colors.green,
+              activeForegroundColor: Color.fromARGB(255, 0, 167, 107),
+            ),
+          ),
+
+          PersistentTabConfig(
+            screen: Center(),
+            item: ItemConfig(
+                icon: Icon(Icons.calendar_today),
+                title: 'calendario',
+                activeForegroundColor: Color.fromARGB(255, 0, 167, 107),
             ),
           ),
           PersistentTabConfig(
@@ -33,7 +42,7 @@ class MyBottomNavigationBar extends StatelessWidget {
             item: ItemConfig(
               icon: Icon(Icons.eco),
               title: "Piante consigliate",
-              activeForegroundColor: Colors.green,
+              activeForegroundColor: Color.fromARGB(255, 0, 167, 107),
             ),
           ),
         ],
