@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:plant_app/screens/addplantscreen.dart';
+import 'package:plant_app/screens/calendarscreen.dart';
 import 'package:plant_app/screens/plantscreen.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
@@ -30,7 +31,7 @@ class MyBottomNavigationBar extends StatelessWidget {
           ),
 
           PersistentTabConfig(
-            screen: Center(),
+            screen: CalendarScreen(),
             item: ItemConfig(
                 icon: Icon(Icons.calendar_today),
                 title: 'calendario',
