@@ -50,6 +50,10 @@ class Gemini {
           "scientific": "string"
         },
         "description": "string"
+        "care": {
+          "watering_interval_days": number,
+          "sunlight": "string",
+          "soil_type" "String,
       }
 
       - For `plant_name.common`, provide the common name.
@@ -58,6 +62,12 @@ class Gemini {
         for a plant enthusiast. The description should include details on its 
         appearance, typical size, and key features (e.g., leaves, flowers,
          fruit) along with any unique facts or curiosities.
+      - For care.watering_interval_days, indicate how often it should be
+        watered in days (integer).
+      - For care.sunlight, indicate the ideal light conditions
+       (e.g., “full sun”, “partial shade”, “indirect light”).
+      - For care.soil_type, indicate the preferred soil type
+       (e.g., “well-drained sandy soil”, “loamy soil”, “peaty soil”). 
          Do not include any text or 
         conversation outside of the JSON object.
     ''';

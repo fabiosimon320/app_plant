@@ -8,6 +8,7 @@ import 'package:plant_app/services/geminiservice.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plant_app/providers/plantprovider.dart';
+import 'package:plant_app/widgets/myappbar.dart';
 
 import '../models/plant.dart';
 
@@ -23,8 +24,7 @@ class AddPlantScreen extends ConsumerStatefulWidget {
 
 class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
   File? _selectedImage;
-  late String _geminiResponse = 'risposta gemini apparira qui';
-  late String plantResponse = 'risposta api';
+  bool isLoading = false;
 
   void _takePicture() async {
 
@@ -61,14 +61,13 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
 
     final selectedImage = _selectedImage;
     if(selectedImage != null) {
+      setState(() {
+        isLoading = true;
+      });
 
       final Uint8List imageData = await selectedImage.readAsBytes();
       final geminiService = Gemini();
       final String info = await geminiService.getPlantInformation(imageData);
-      setState(() {
-        _geminiResponse = info;
-      });
-      print("Risposta Gemini: $info");
       decodeJson(info);
     }
   }
@@ -84,46 +83,55 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
     final String commonName = data['plant_name']['common'];
     final String scientificName = data['plant_name']['scientific'];
     final String description = data['description'];
+    final int waterDay = data['care']['watering_interval_days'];
+    final String sunLight = data['care']['sunlight'];
+    final String soilType = data['care']['soil_type'];
 
      final newPlant = Plant(
        name: commonName,
        scientificname: scientificName,
        description: description,
        image: FileImage(_selectedImage!),
+       waterday: waterDay,
+       sunlight: sunLight,
+       soiltype: soilType,
      );
-
      ref.read(plantProvider.notifier).addPlant(newPlant);
+     setState(() {
+       isLoading = false;
+     });
      widget.controller.jumpToTab(0);
-
-
   }
-
-
-
-
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(title: 'Inserisci foto'),
       backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Quadrato in alto
-          Container(
-            margin: EdgeInsets.all(30),
-            width: MediaQuery.of(context).size.width - 60,
-            height: (MediaQuery.of(context).size.width - 60)* 1.33,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              color: Colors.grey.shade400,
-            ),
-            child: _selectedImage == null
-                ? Center(child: Text("Nessuna foto"))
-                : Image.file(_selectedImage!, fit: BoxFit.cover, filterQuality: FilterQuality.high),
 
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+
+          SizedBox(height: 35),
+          Center(
+            child: Container(
+
+              width: MediaQuery.of(context).size.width - 100,
+              height: (MediaQuery.of(context).size.width - 100) * 1.33,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                color: Colors.grey.shade400,
+              ),
+              child: _selectedImage == null
+                  ? Center(child: Text("Nessuna foto"))
+                  : Image.file(_selectedImage!, fit: BoxFit.cover, filterQuality: FilterQuality.high),
+
+            ),
           ),
+          // Quadrato in alto
+
 
           // Bottone in basso
           if( _selectedImage == null)
@@ -135,42 +143,51 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
               ),
             ),
 
-          SizedBox(height: 20),
-          Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(_geminiResponse),
-                  )
-              ),
-          ),
 
+          Expanded(child: Container()),
 
           if(_selectedImage != null)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
+
+                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(70, 70)
+                    ),
+                    onPressed: () {
+                      setState(() {
                       _selectedImage = null;
-                      _geminiResponse = 'in attesa';
+
                     });
                   },
                   child: Icon(Icons.refresh),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                  onPressed: _sendPicture,
-                  child: Icon(Icons.check),
+                const SizedBox(width: 24), // distanza tra i pulsanti
+                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(70, 70)
+                    ),
+                    onPressed: _sendPicture,
+                    child: Icon(Icons.check),
+                 ),
+
+              ],
+            ),
+
+          if (isLoading)
+              Container(
+                color: Colors.white, // trasparenza
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white, // visibile sullo sfondo scuro
                   ),
                 ),
-              ],
-            )
+              ),
+
+
+          const SizedBox(height: 15),
+
 
 
 
