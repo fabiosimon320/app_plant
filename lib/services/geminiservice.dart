@@ -32,13 +32,13 @@ class Gemini {
 
   GenerativeModel get model => _model;
 
-  Future<String> getPlantInformation(Uint8List imageData) async {
+  Future<String> getPlantInformation(String nameplant) async {
     Gemini gemini = Gemini();
     GenerativeModel model = gemini.model;
 
     var prompt = '''
       You are a highly knowledgeable botanical expert.
-      Your task is to identify the plant shown in the provided image and provide a detailed summary.
+      Your task is to identify the plant by name: $nameplant and provide a detailed summary.
 
       **IMPORTANT:** Generate ONLY the JSON object below.
       Do NOT include explanations, backticks, markdown,
@@ -74,7 +74,6 @@ class Gemini {
 
     final content = [
       Content.text(prompt),
-    Content.data('image/jpeg', imageData),
     ];
     final response = await model.generateContent(content);
     return response.text?.trim() ?? '{"Error": "Nessuna risposta dal modello"}';
