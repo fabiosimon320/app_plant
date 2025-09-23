@@ -4,14 +4,31 @@ import 'package:plant_app/screens/addplantscreen.dart';
 import 'package:plant_app/screens/calendarscreen.dart';
 import 'package:plant_app/screens/plantscreen.dart';
 
-class MyBottomNavigationBar extends StatelessWidget {
+class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({super.key});
+
+  @override
+  State<StatefulWidget> createState() => MyBottomNavigationBarState();
+
+
+}
+
+class MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+
+  late PersistentTabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PersistentTabController(initialIndex: 0);
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    final PersistentTabController controller = PersistentTabController(initialIndex: 0);
     return PersistentTabView(
+
+      controller: controller,
         tabs: [
           PersistentTabConfig(
             screen: PlantScreen(),
