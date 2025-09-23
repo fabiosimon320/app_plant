@@ -55,14 +55,6 @@ class MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                 activeForegroundColor: Color.fromARGB(255, 0, 167, 107),
             ),
           ),
-          PersistentTabConfig(
-            screen: Center(),
-            item: ItemConfig(
-              icon: Icon(Icons.eco),
-              title: "Piante consigliate",
-              activeForegroundColor: Color.fromARGB(255, 0, 167, 107),
-            ),
-          ),
         ],
         navBarBuilder: (navBarConfig) => Style1BottomNavBar(
           navBarConfig: navBarConfig,

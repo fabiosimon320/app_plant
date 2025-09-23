@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/plant.dart';
 import 'package:plant_app/screens/profileplant.dart';
@@ -29,8 +31,8 @@ class PlantCard extends StatelessWidget {
               // Immagine pianta
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image(
-                    image: plant.image,
+                child: Image.file(
+                    File(plant.imagePath),
                     width: 120,
                     height: 120,
                     fit: BoxFit.cover
