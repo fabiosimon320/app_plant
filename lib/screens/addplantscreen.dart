@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -8,8 +7,8 @@ import 'package:plant_app/services/geminiservice.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plant_app/providers/plantprovider.dart';
+import 'package:plant_app/services/plantidapi.dart';
 import 'package:plant_app/widgets/myappbar.dart';
-
 import '../models/plant.dart';
 
 class AddPlantScreen extends ConsumerStatefulWidget {
@@ -27,7 +26,6 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
   bool isLoading = false;
 
   void _takePicture() async {
-
     var status = await Permission.camera.status;
     if (!status.isGranted) {
       // Chiede il permesso all'utente
@@ -55,6 +53,8 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
     }
 
 
+
+
   }
 
   void _sendPicture() async {
@@ -64,11 +64,18 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
       setState(() {
         isLoading = true;
       });
+      String? namePlant;
+      namePlant = await identifyPlant(selectedImage);
 
-      final Uint8List imageData = await selectedImage.readAsBytes();
-      final geminiService = Gemini();
-      final String info = await geminiService.getPlantInformation(imageData);
-      decodeJson(info);
+
+      if(namePlant != null) {
+        final geminiService = Gemini();
+        final String info = await geminiService.getPlantInformation(namePlant);
+        decodeJson(info);
+
+      }
+
+
     }
   }
 
@@ -98,9 +105,11 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
      );
      ref.read(plantProvider.notifier).addPlant(newPlant);
      setState(() {
+
        isLoading = false;
      });
-     widget.controller.jumpToTab(0);
+
+
   }
 
 
@@ -109,10 +118,11 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
     return Scaffold(
       appBar: MyAppBar(title: 'Inserisci foto'),
       backgroundColor: Colors.white,
-      body: Column(
-
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: Stack(
         children: [
+          Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
 
           SizedBox(height: 35),
           Center(
@@ -151,33 +161,33 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
 
-                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(70, 70)
-                    ),
-                    onPressed: () {
-                      setState(() {
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(70, 70)
+                  ),
+                  onPressed: () {
+                    setState(() {
                       _selectedImage = null;
 
                     });
                   },
                   child: Icon(Icons.refresh),
-                  ),
+                ),
                 const SizedBox(width: 24), // distanza tra i pulsanti
-                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(70, 70)
-                    ),
-                    onPressed: _sendPicture,
-                    child: Icon(Icons.check),
-                 ),
-
-              ],
-            ),
-
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(70, 70)
+                  ),
+                  onPressed: _sendPicture,
+                  child: Icon(Icons.check),
+                  ),
+                ],
+              ),
+            ],
+          ),
           if (isLoading)
               Container(
-                color: Colors.white, // trasparenza
+                color: Colors.black.withAlpha(127), // trasparenza
                 child: const Center(
                   child: CircularProgressIndicator(
                     color: Colors.white, // visibile sullo sfondo scuro
@@ -185,11 +195,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
                 ),
               ),
 
-
           const SizedBox(height: 15),
-
-
-
 
 
         ],
