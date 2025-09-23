@@ -19,9 +19,8 @@ class InfoCard extends StatelessWidget {
 
     return Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 248, 248, 248),
+          color: Color.fromARGB(255,215,237,216),
           borderRadius: BorderRadius.circular(12),
-
         ),
         width: sizewidth,
         height: 100,
@@ -33,12 +32,12 @@ class InfoCard extends StatelessWidget {
             const SizedBox(width: 15),
             Expanded(
                 child:  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 16),
-                Text(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
                   title,
-                  style: GoogleFonts.roboto(
+                    style: GoogleFonts.roboto(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),
@@ -46,16 +45,16 @@ class InfoCard extends StatelessWidget {
                   overflow: TextOverflow.visible,
                   maxLines: null,
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  value,
-                  style: GoogleFonts.roboto(
+                  const SizedBox(height: 6),
+                  Text(
+                    value,
+                    style: GoogleFonts.roboto(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
-                  softWrap: true,
-                  overflow: TextOverflow.visible,
-                  maxLines: null,
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
+                    maxLines: null,
                 ),
               ],
               ),

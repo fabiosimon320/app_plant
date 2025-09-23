@@ -25,7 +25,7 @@ class CalendarScreenState extends ConsumerState<CalendarScreen> {
     DateTime now = DateTime.now();
     final Map<DateTime, List<Plant>> eventsByDay = {};
 
-    const daysAhead = 30;
+    const daysAhead = 60;
 
     for (final plant in followedPlants) {
       for (int i = 0; i <= daysAhead; i++) {
@@ -41,60 +41,77 @@ class CalendarScreenState extends ConsumerState<CalendarScreen> {
     return Scaffold(
 
       appBar: MyAppBar(title: 'Calendario'),
+      extendBodyBehindAppBar: true,
 
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
+      body: Stack(
+
           children: [
-            TableCalendar(
-                focusedDay: focusedDay,
-                firstDay: DateTime.now(),
-                lastDay: now.add(Duration(days: daysAhead)),
-                eventLoader: (day) {
-                  final normalizedDay = DateTime(day.year, day.month, day.day);
-                  return eventsByDay[normalizedDay] ?? [];
-                },
+            Positioned.fill(
 
-                selectedDayPredicate: (day) {
-                  return isSameDay(day, giornoSelezionato);
-                },
-
-                onDaySelected: (giornoAggiornato, giornoCorrente) {
-                  setState(() {
-                    giornoSelezionato = giornoAggiornato;
-                    focusedDay = giornoCorrente;
-                  });
-                }
-
-
+                child: Image.asset('assets/images/sfondocalendario.png',
+                fit: BoxFit.cover, repeat: ImageRepeat.repeat,
+                opacity: const AlwaysStoppedAnimation<double>(0.9),
+                ),
             ),
-            const SizedBox(height: 40),
 
-            Expanded(
-              child: ListView.separated(
-                itemCount: (eventsByDay[DateTime(
-                    giornoSelezionato.year,
-                    giornoSelezionato.month,
-                    giornoSelezionato.day)] ?? []).length,
-                itemBuilder: (context, index) {
-                  final plant = (eventsByDay[DateTime(
-                      giornoSelezionato.year,
-                      giornoSelezionato.month,
-                      giornoSelezionato.day)] ?? [])[index];
-                  return InfoCard(
-                    icon: Icons.water_drop,
-                    title: '',
-                    value: 'Annaffia ${plant.name}',
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(height: 10),
+            Padding(padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  SizedBox(height: kToolbarHeight),
+                  TableCalendar(
+
+                      headerStyle: HeaderStyle(
+                        formatButtonVisible: false,
+                      ),
+                      focusedDay: focusedDay,
+                      firstDay: DateTime.now(),
+                      lastDay: now.add(Duration(days: daysAhead)),
+                      eventLoader: (day) {
+                        final normalizedDay = DateTime(day.year, day.month, day.day);
+                        return eventsByDay[normalizedDay] ?? [];
+                        },
+
+                      selectedDayPredicate: (day) {
+                        return isSameDay(day, giornoSelezionato);
+                        },
+
+                      onDaySelected: (giornoAggiornato, giornoCorrente) {
+                        setState(() {
+                          giornoSelezionato = giornoAggiornato;
+                          focusedDay = giornoCorrente;
+                        });
+                      }
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: (eventsByDay[DateTime(
+                          giornoSelezionato.year,
+                          giornoSelezionato.month,
+                          giornoSelezionato.day)] ?? []).length,
+                      itemBuilder: (context, index) {
+                        final plant = (eventsByDay[DateTime(
+                            giornoSelezionato.year,
+                            giornoSelezionato.month,
+                            giornoSelezionato.day)] ?? [])[index];
+                        return InfoCard(
+                          icon: Icons.water_drop_outlined,
+                          title: '',
+                          value: 'Annaffia pianta: ${plant.name}',
+                        );
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(height: 10),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
+          ]
+        )
+      );
+    }
   
 }
 

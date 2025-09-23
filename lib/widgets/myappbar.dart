@@ -20,13 +20,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: GoogleFonts.roboto(
-            color: Color.fromARGB(255, 0, 167, 107),
+          color: Color.fromARGB(255, 0, 167, 107),
             fontWeight: FontWeight.bold,
         ),
       ),
 
       scrolledUnderElevation: 0.0,
-      backgroundColor : Colors.white,
+      backgroundColor : Colors.transparent,
       foregroundColor: Color.fromARGB(255, 0, 167, 107),
       centerTitle: true,
 
