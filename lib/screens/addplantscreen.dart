@@ -1,14 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
+import  'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:plant_app/services/geminiservice.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:plant_app/providers/plantprovider.dart';
 import 'package:plant_app/services/plantidapi.dart';
+import 'package:plant_app/services/plantservice.dart';
 import 'package:plant_app/widgets/myappbar.dart';
 import '../models/plant.dart';
 
@@ -25,99 +22,78 @@ class AddPlantScreen extends ConsumerStatefulWidget {
 class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
   File? _selectedImage;
   bool isLoading = false;
-
-  void _takePicture() async {
-    var status = await Permission.camera.status;
-    if (!status.isGranted) {
-      // Chiede il permesso all'utente
-      status = await Permission.camera.request();
-    }
-    if (status.isGranted) {
-      final imagePicker = ImagePicker();
-      final pickedImage = await imagePicker.pickImage(
-        source: ImageSource.camera,
-        imageQuality: 100,
-        maxWidth: 600,
-      );
-
-      if (pickedImage == null) {
-        return;
-      }
-
-      setState(() {
-        _selectedImage = File(pickedImage.path);
-      });
-    } else if (status.isDenied) {
-
-    } else if (status.isPermanentlyDenied) {
-      openAppSettings(); // Per aprire le impostazioni del dispositivo
-    }
+  final plantservice = PlantService(geminiService: Gemini());
 
 
+
+  Future<void> takepicture() async {
+    File? image = await plantservice.takePicture();
+    setState(() {
+      _selectedImage = image;
+    });
   }
 
-  void _sendPicture() async {
+  Future<void> sendPicture() async {
 
-    final selectedImage = _selectedImage;
-    if(selectedImage != null) {
+    if( _selectedImage != null) {
       setState(() {
         isLoading = true;
       });
-      String? namePlant = 'rosa';
-      //namePlant = await identifyPlant(selectedImage);
+      Plant myplant = Plant(
+        name: 'ciao',
+        scientificname: 'ciao',
+        imagePath: _selectedImage!.path,
+        description: 'ciao',
+        waterday: 7,
+        sunlight: 'ciao',
+        soiltype: 'ciao',
+
+      );
+      //Plant? plant = await plantservice.sendPicture(_selectedImage!);
+      if(myplant != null ) {
 
 
-      if(namePlant != null) {
-        final geminiService = Gemini();
-        final String info = await geminiService.getPlantInformation(namePlant);
-        decodeJson(info);
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ref.read(plantProvider.notifier).addPlant(myplant);
+
+      }else{
+        if(mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Pianta inserita con successo!',
-                style: GoogleFonts.roboto(fontSize: 12),
+                'Errore, non è stato possibile inserire la pianta!',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+
               ),
+              backgroundColor: Color.fromARGB(255, 0, 0, 0),
               duration: Duration(seconds: 2),
-              backgroundColor: Color.fromARGB(255, 0, 167, 107),
             ),
-        );
+          );
+        }
       }
 
-
+      setState(() {
+        isLoading = false;
+      });
     }
-  }
 
-  void decodeJson(String json) {
-    String cleaned = json
-        .replaceFirst(RegExp(r'^```json\s*'), '') // inizio
-        .replaceFirst(RegExp(r'\s*```$'), '')     // fine
-        .trim();
+    if(mounted){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Pianta inserita con successo!',
+              style: TextStyle(
+                color: Colors.white,
+              ),
 
-    final Map<String, dynamic> data = jsonDecode(cleaned);
-
-    final String commonName = data['plant_name']['common'];
-    final String scientificName = data['plant_name']['scientific'];
-    final String description = data['description'];
-    final int waterDay = data['care']['watering_interval_days'];
-    final String sunLight = data['care']['sunlight'];
-    final String soilType = data['care']['soil_type'];
-
-    final newPlant = Plant(
-      name: commonName,
-      scientificname: scientificName,
-      description: description,
-      image: FileImage(_selectedImage!),
-      waterday: waterDay,
-      sunlight: sunLight,
-      soiltype: soilType,
-    );
-    ref.read(plantProvider.notifier).addPlant(newPlant);
-
-    setState(() {
-      isLoading = false;
-    });
-
+          ),
+          backgroundColor: Color.fromARGB(255, 0, 167, 107),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
 
   }
 
@@ -187,7 +163,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top:50.0),
                   child: ElevatedButton(
-                    onPressed: _takePicture,
+                    onPressed: takepicture,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromARGB(255, 0, 167, 107),
                     ),
@@ -227,7 +203,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 0, 167, 107),
                         ),
-                        onPressed: _sendPicture,
+                        onPressed: sendPicture,
                         child: Icon(Icons.check, color: Colors.white,),
                       ),
                     ],
