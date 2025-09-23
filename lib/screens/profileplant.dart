@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ class PlantProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
-    
+
     
     return Scaffold(
       appBar: MyAppBar(title: 'profilo pianta', showBackButton: true),
@@ -27,10 +28,10 @@ class PlantProfilePage extends ConsumerWidget {
             SizedBox(height: 16),
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image(
-                  image: plant.image,
-                  width: screenWidth * 0.9,
-                  height: 300,
+              child: Image.file(
+                  File(plant.imagePath),
+                  width: screenWidth * 0.8,
+                  height: 400,
                   fit: BoxFit.cover
               ),
             ),
