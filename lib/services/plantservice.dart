@@ -25,7 +25,6 @@ class PlantService {
   Future<File?> takePicture() async {
     var status = await Permission.camera.status;
     if (!status.isGranted) {
-      // Chiede il permesso all'utente
       status = await Permission.camera.request();
     }
     if (status.isGranted) {
@@ -52,30 +51,19 @@ class PlantService {
 
   Future<Plant?> sendPicture(File image) async {
 
-    String? namePlant = 'rosa';
-    //namePlant = await identifyPlant(image);
+    String? namePlant = await identifyPlant(image);
 
 
-    /*if (namePlant != null) {
+    if (namePlant != null) {
 
       final String info = await geminiService.getPlantInformation(namePlant);
       final savedPath = await saveImage(image);
       Plant plant = decodeJson(info, savedPath);
       return plant;
 
-    }*/
-    Plant myplant = Plant(
-      name: 'ciao',
-      scientificname: 'ciao',
-      imagePath: image.path,
-      description: 'ciao',
-      waterday: 7,
-      sunlight: 'ciao',
-      soiltype: 'ciao',
+    }
+    return null;
 
-    );
-
-    return myplant;
   }
 
 
@@ -98,7 +86,7 @@ class PlantService {
       name: commonName,
       scientificname: scientificName,
       description: description,
-      imagePath: imagePath,
+      imagepath: imagePath,
       waterday: waterDay,
       sunlight: sunLight,
       soiltype: soilType,
