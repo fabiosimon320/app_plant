@@ -1,10 +1,10 @@
-import  'dart:io';
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:plant_app/database/databaseplant.dart';
 import 'package:plant_app/services/geminiservice.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/providers/plantprovider.dart';
-import 'package:plant_app/services/plantidapi.dart';
 import 'package:plant_app/services/plantservice.dart';
 import 'package:plant_app/widgets/myappbar.dart';
 import '../models/plant.dart';
@@ -23,6 +23,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
   File? _selectedImage;
   bool isLoading = false;
   final plantservice = PlantService(geminiService: Gemini());
+  final plantdatabase = DatabasePlant.instance;
 
 
 
@@ -42,7 +43,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
       Plant myplant = Plant(
         name: 'ciao',
         scientificname: 'ciao',
-        imagePath: _selectedImage!.path,
+        imagepath: _selectedImage!.path,
         description: 'ciao',
         waterday: 7,
         sunlight: 'ciao',
@@ -50,12 +51,30 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
 
       );
       //Plant? plant = await plantservice.sendPicture(_selectedImage!);
+
+
       if(myplant != null ) {
 
-
+        await plantdatabase.insertPlant(myplant);
 
         ref.read(plantProvider.notifier).addPlant(myplant);
+        if(mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Pianta inserita con successo!',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
 
+              ),
+              backgroundColor: Color.fromARGB(255, 0, 167, 107),
+              duration: Duration(seconds: 2),
+            ),
+          );
+
+
+        }
       }else{
         if(mounted){
           ScaffoldMessenger.of(context).showSnackBar(
@@ -76,24 +95,11 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
 
       setState(() {
         isLoading = false;
+
       });
     }
 
-    if(mounted){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              'Pianta inserita con successo!',
-              style: TextStyle(
-                color: Colors.white,
-              ),
 
-          ),
-          backgroundColor: Color.fromARGB(255, 0, 167, 107),
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
 
   }
 
@@ -203,7 +209,12 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 0, 167, 107),
                         ),
-                        onPressed: sendPicture,
+                        onPressed: (){
+                          sendPicture();
+                          setState(() {
+                            _selectedImage = null;
+                          });
+                        },
                         child: Icon(Icons.check, color: Colors.white,),
                       ),
                     ],
