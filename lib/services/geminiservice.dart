@@ -40,6 +40,8 @@ class Gemini {
       You are a highly knowledgeable botanical expert.
       Your task is to identify the plant by name: $nameplant and provide a detailed summary.
 
+      **IMPORTANT** Translate all generated content into Italian.
+      
       **IMPORTANT:** Generate ONLY the JSON object below.
       Do NOT include explanations, backticks, markdown,
       or any extra text.
