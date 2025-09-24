@@ -40,24 +40,14 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
       setState(() {
         isLoading = true;
       });
-      Plant myplant = Plant(
-        name: 'ciao',
-        scientificname: 'ciao',
-        imagepath: _selectedImage!.path,
-        description: 'ciao',
-        waterday: 7,
-        sunlight: 'ciao',
-        soiltype: 'ciao',
 
-      );
-      //Plant? plant = await plantservice.sendPicture(_selectedImage!);
+      Plant? plant = await plantservice.sendPicture(_selectedImage!);
 
+      if(plant != null ) {
 
-      if(myplant != null ) {
+        await plantdatabase.insertPlant(plant);
 
-        await plantdatabase.insertPlant(myplant);
-
-        ref.read(plantProvider.notifier).addPlant(myplant);
+        ref.read(plantProvider.notifier).addPlant(plant);
         if(mounted){
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

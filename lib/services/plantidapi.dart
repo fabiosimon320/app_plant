@@ -30,6 +30,12 @@ Future<String?> identifyPlant(File imageFile) async {
     if (suggestions != null && suggestions.isNotEmpty) {
       final bestMatch = suggestions[0];
 
+      final probability = (bestMatch["probability"] ?? 0.0).toDouble();
+
+      if (probability < 0.3) {
+        return null;
+      }
+
       return bestMatch["name"];
 
     }
