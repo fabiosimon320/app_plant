@@ -17,11 +17,11 @@ class CalendarScreen extends ConsumerStatefulWidget {
 class CalendarScreenState extends ConsumerState<CalendarScreen> {
   DateTime giornoSelezionato = DateTime.now();
   DateTime focusedDay = DateTime.now();
-  @override
-  Widget build(BuildContext context) {
 
-    final followedPlants = ref.watch(followedPlantsDataProvider);
+  @override void initState() {
+    super.initState();
 
+    final followedPlants = ref.read(followedPlantsDataProvider);
     DateTime now = DateTime.now();
     final Map<DateTime, List<Plant>> eventsByDay = {};
 
@@ -37,11 +37,33 @@ class CalendarScreenState extends ConsumerState<CalendarScreen> {
         }
       }
     }
-
     final todayPlants = eventsByDay[DateTime(now.year, now.month, now.day)] ?? [];
     if (todayPlants.isNotEmpty) {
       NotificationService().showWaterReminder();
     }
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    final followedPlants = ref.watch(followedPlantsDataProvider);
+    DateTime now = DateTime.now();
+    final Map<DateTime, List<Plant>> eventsByDay = {};
+    const daysAhead = 60;
+
+    for (final plant in followedPlants) {
+      for (int i = 0; i <= daysAhead; i++) {
+        if (i % plant.waterday == 0) {
+          final day = DateTime(now.year, now.month, now.day).add(
+              Duration(days: i));
+          eventsByDay.putIfAbsent(day, () => []);
+          eventsByDay[day]!.add(plant);
+        }
+      }
+    }
+
 
     return Scaffold(
       appBar: MyAppBar(title: 'Calendario'),
