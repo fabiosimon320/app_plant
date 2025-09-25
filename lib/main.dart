@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:plant_app/homepage.dart';
 import 'package:plant_app/services/geminiservice.dart';
+import 'package:plant_app/services/notification_service.dart';
+
 
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
   await Gemini().initGemini();
   runApp(
       ProviderScope(
