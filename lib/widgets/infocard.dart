@@ -27,36 +27,43 @@ class InfoCard extends StatelessWidget {
         child: Row(
 
           children: [
+
             const SizedBox(width: 15),
             Icon(icon),
             const SizedBox(width: 15),
             Expanded(
-                child:  Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 16),
-                  Text(
-                  title,
-                    style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                  softWrap: true,
-                  overflow: TextOverflow.visible,
-                  maxLines: null,
+                child:  Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 16),
+                    Text(
+                      title,
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
+                      maxLines: null,
+                    ),
+                    const SizedBox(height: 6),
+                    SizedBox(
+                      width: sizewidth,
+                      child: SingleChildScrollView(
+                        child: Text(
+                          value,
+                          style: GoogleFonts.roboto(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                  const SizedBox(height: 6),
-                  Text(
-                    value,
-                    style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                  ),
-                    softWrap: true,
-                    overflow: TextOverflow.visible,
-                    maxLines: null,
-                ),
-              ],
+
               ),
             ),
 

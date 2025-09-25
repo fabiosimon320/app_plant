@@ -130,13 +130,17 @@ class PlantProfilePageState extends ConsumerState<PlantProfilePage>{
                     isFollowed
                         ? 'Pianta già seguita'
                         : 'Aggiungi trattamento pianta al calendario!',
+                    textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
                       fontWeight: FontWeight.normal,
                       fontSize: 16,
                       color: Colors.white,
+
+
+                      )
                     ),
                   ),
-                ),
+
 
 
             const SizedBox(height: 40),
