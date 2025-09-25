@@ -27,14 +27,23 @@ class PlantCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Immagine pianta
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.file(
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlantProfilePage(plant: plant),
+                    ),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.file(
                     File(plant.imagepath),
                     width: 120,
                     height: 120,
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
