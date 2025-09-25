@@ -68,6 +68,7 @@ class _PlantScreenState extends ConsumerState<PlantScreen>{
       if (plants.isEmpty) {
 
         return const Scaffold(
+          appBar: MyAppBar(title: 'PlantCare'),
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
           body: Center(
             child: Column(
