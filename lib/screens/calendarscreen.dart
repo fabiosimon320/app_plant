@@ -4,8 +4,8 @@ import 'package:plant_app/providers/followedplantprovider.dart';
 import 'package:plant_app/widgets/infocard.dart';
 import 'package:plant_app/widgets/myappbar.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../models/plant.dart';
+import '../services/notification_service.dart';
 
 
 class CalendarScreen extends ConsumerStatefulWidget {
@@ -38,13 +38,15 @@ class CalendarScreenState extends ConsumerState<CalendarScreen> {
       }
     }
 
-    return Scaffold(
+    final todayPlants = eventsByDay[DateTime(now.year, now.month, now.day)] ?? [];
+    if (todayPlants.isNotEmpty) {
+      NotificationService().showWaterReminder();
+    }
 
+    return Scaffold(
       appBar: MyAppBar(title: 'Calendario'),
       extendBodyBehindAppBar: true,
-
       body: Stack(
-
           children: [
             Positioned.fill(
 
