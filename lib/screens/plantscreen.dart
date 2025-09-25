@@ -104,7 +104,7 @@ class _PlantScreenState extends ConsumerState<PlantScreen>{
       }
       return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        appBar: MyAppBar(title: 'Prova app'),
+        appBar: MyAppBar(title: 'PlantCare'),
         body: SafeArea(
 
           child: ListView.separated(
