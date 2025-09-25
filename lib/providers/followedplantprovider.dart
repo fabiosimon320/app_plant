@@ -21,7 +21,7 @@ class FollowedPlantsNotifier extends StateNotifier<Set<String>>{
   }
 
   void initializeFollowed(List<Plant> plants) {
-    // Prende tutti gli ID delle piante con followed == 1
+
     state = plants.where((p) => p.followed == 1).map((p) => p.id).toSet();
   }
 

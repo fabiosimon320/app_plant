@@ -7,10 +7,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Integration test bottom navigation', (WidgetTester tester) async {
-    app.main(); // lancia l’app vera
+    app.main();
     await tester.pumpAndSettle();
 
-    // Simula tap sulle icone della bottom nav
     await tester.tap(find.byIcon(Icons.add_a_photo));
     await tester.pumpAndSettle();
     expect(find.text('Aggiungi pianta'), findsOneWidget);

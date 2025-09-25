@@ -132,7 +132,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: kToolbarHeight ), // lascia spazio all'AppBar
+                SizedBox(height: kToolbarHeight ),
                 SizedBox(height: 35),
                 Center(
                   child: Container(
@@ -173,7 +173,6 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
 
 
 
-              // Bottone in basso
               if( _selectedImage == null)
                 Padding(
                   padding: const EdgeInsets.only(top:50.0),
@@ -212,7 +211,7 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
                         child: Icon(Icons.refresh, color: Colors.white),
                       ),
 
-                      SizedBox(width: screenWidth * 0.3), // distanza tra i pulsanti
+                      SizedBox(width: screenWidth * 0.3),
                       ElevatedButton(
 
                         style: ElevatedButton.styleFrom(

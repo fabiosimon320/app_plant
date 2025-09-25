@@ -30,7 +30,7 @@ class PlantNotifier extends StateNotifier<List<Plant>> {
   }
 
   void addPlantAtIndex(Plant plant, int index){
-    final newList = [...state];  // copia della lista
+    final newList = [...state];
     newList.insert(index, plant);
     state = newList;
   }

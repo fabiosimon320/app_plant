@@ -44,7 +44,7 @@ class PlantService {
     } else if (status.isDenied) {
 
     } else if (status.isPermanentlyDenied) {
-      openAppSettings(); // Per aprire le impostazioni del dispositivo
+      openAppSettings();
     }
     return null;
   }

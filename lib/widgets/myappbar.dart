@@ -35,7 +35,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         icon: Icon(Icons.arrow_back),
         onPressed: () => Navigator.pop(context),
         )
-          : null, // null significa nessun tasto a sinistra
+          : null,
       );
     }
 

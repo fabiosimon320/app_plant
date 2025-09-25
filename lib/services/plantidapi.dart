@@ -10,7 +10,7 @@ Future<String?> identifyPlant(File imageFile) async {
     exit(1);
   }
 
-  // Converti l’immagine in Base64
+
   final base64Image = base64Encode(await imageFile.readAsBytes());
 
   final response = await http.post(

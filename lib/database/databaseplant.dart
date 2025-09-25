@@ -54,7 +54,7 @@ class DatabasePlant {
     return await db.insert('plants', plant.toMap());
   }
 
-  // Get all plants
+
   Future<List<Plant>> getPlants() async {
 
     Database db = await database;
@@ -77,12 +77,12 @@ class DatabasePlant {
   Future<void> updatePlant(String plantId, int isFollowing) async {
 
     int value = 1 - isFollowing;
-    Database db = await database; // o usa il tuo db già aperto
+    Database db = await database;
 
     try{
       await db.update(
-        'plants', // nome tabella
-        {'followed': value}, // campo booleano come int
+        'plants',
+        {'followed': value},
         where: 'id = ?',
         whereArgs: [plantId],
       );

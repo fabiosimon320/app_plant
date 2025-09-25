@@ -55,10 +55,10 @@ class _PlantScreenState extends ConsumerState<PlantScreen>{
 
       return Scaffold(
           body: Container(
-              color: Colors.black.withAlpha(127), // trasparenza
+              color: Colors.black.withAlpha(127),
               child: const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.white, // visibile sullo sfondo scuro
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -142,9 +142,6 @@ class _PlantScreenState extends ConsumerState<PlantScreen>{
                       await plantdatabase.deletePlant(currentPlant.id);
                     }
                   });
-
-
-
 
 
                 },

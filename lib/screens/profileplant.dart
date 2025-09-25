@@ -46,87 +46,87 @@ class PlantProfilePageState extends ConsumerState<PlantProfilePage>{
         child:Center(
           child: Column(
 
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
 
-              children: [
+            children: [
               SizedBox(height: 16),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.file(
-                  File(widget.plant.imagepath),
-                  width: screenWidth * 0.8,
-                  height: 400,
-                  fit: BoxFit.cover
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(
+                    File(widget.plant.imagepath),
+                    width: screenWidth * 0.8,
+                    height: 400,
+                    fit: BoxFit.cover
+                ),
               ),
-            ),
 
-            const SizedBox(height: 16),
-            Text(
-              widget.plant.name,
-              style: GoogleFonts.roboto(
+              const SizedBox(height: 16),
+              Text(
+                widget.plant.name,
+                style: GoogleFonts.roboto(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24
+                ),
+              ),
+
+              const SizedBox(height: 8),
+              Text(
+                widget.plant.scientificname,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+              ),
+
+              const SizedBox(height: 16),
+              Text(
+                'Descrizione:',
+                style: GoogleFonts.roboto(
                   fontWeight: FontWeight.bold,
-                  fontSize: 24
+                  fontSize: 20,
+                ),
               ),
-            ),
 
-            const SizedBox(height: 8),
-            Text(
-              widget.plant.scientificname,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            ),
-
-            const SizedBox(height: 16),
-            Text(
-              'Descrizione:',
-              style: GoogleFonts.roboto(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+              const SizedBox(height: 4),
+              Text(
+                widget.plant.description,
+                style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                ),
               ),
-            ),
 
-            const SizedBox(height: 4),
-            Text(
-              widget.plant.description,
-              style: GoogleFonts.roboto(
-                fontWeight: FontWeight.normal,
-                fontSize: 16,
+              const SizedBox(height: 16),
+              Text(
+                'Condizioni ideali',
+                style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
               ),
-            ),
-
-            const SizedBox(height: 16),
-            Text(
-              'Condizioni ideali',
-              style: GoogleFonts.roboto(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+              const SizedBox(height: 8),
+              InfoCard(
+                icon: Icons.thermostat,
+                title: 'Acqua',
+                value: "Ogni ${widget.plant.waterday} giorni",
               ),
-            ),
-            const SizedBox(height: 8),
-            InfoCard(
-              icon: Icons.thermostat,
-              title: 'Acqua',
-              value: "Ogni ${widget.plant.waterday} giorni",
-            ),
-            const SizedBox(height: 8),
-            InfoCard(
-              icon: Icons.eco_sharp,
-              title: 'Tipo di terreno',
-              value: widget.plant.soiltype,
-            ),
-            const SizedBox(height: 8),
-            InfoCard(
-              icon: Icons.sunny,
-              title: 'Esposizione alla luce solare',
-              value: widget.plant.sunlight,
-            ),
-            const SizedBox(height: 30),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 0, 167, 107),
-                  ),
-                  onPressed: update,
-                  child: Text(
+              const SizedBox(height: 8),
+              InfoCard(
+                icon: Icons.eco_sharp,
+                title: 'Tipo di terreno',
+                value: widget.plant.soiltype,
+              ),
+              const SizedBox(height: 8),
+              InfoCard(
+                icon: Icons.sunny,
+                title: 'Esposizione alla luce solare',
+                value: widget.plant.sunlight,
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 0, 167, 107),
+                ),
+                onPressed: update,
+                child: Text(
                     isFollowed
                         ? 'Pianta già seguita'
                         : 'Aggiungi trattamento pianta al calendario!',
@@ -137,16 +137,16 @@ class PlantProfilePageState extends ConsumerState<PlantProfilePage>{
                       color: Colors.white,
 
 
-                      )
-                    ),
-                  ),
+                    )
+                ),
+              ),
 
 
 
-            const SizedBox(height: 40),
+              const SizedBox(height: 40),
 
-          ],
-        ) ,
+            ],
+          ) ,
       ),
     ),
     );
