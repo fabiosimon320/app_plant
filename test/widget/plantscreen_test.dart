@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plant_app/models/plant.dart';
-import 'package:plant_app/screens/profileplant.dart';
 import 'package:plant_app/widgets/plantcard.dart';
 
 void main() {
@@ -16,7 +15,7 @@ void main() {
       soiltype: 'terriccio',
     );
 
-    // Costruisci il widget
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

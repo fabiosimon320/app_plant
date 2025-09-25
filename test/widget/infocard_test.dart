@@ -1,21 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:plant_app/models/plant.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/widgets/infocard.dart';
 
 void main() {
   testWidgets('test di info card', (WidgetTester tester) async {
-    final plant = Plant(
-      name: 'Rosa',
-      scientificname: 'Roseae Lam',
-      imagepath: 'assets/images/sfondocalendario.png',
-      description: 'E una rosa',
-      waterday: 7,
-      sunlight: 'Tanto sole',
-      soiltype: 'terriccio',
-    );
 
-    // Costruisci il widget
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
