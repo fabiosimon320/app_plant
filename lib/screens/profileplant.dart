@@ -89,7 +89,7 @@ class PlantProfilePageState extends ConsumerState<PlantProfilePage>{
             Text(
               widget.plant.description,
               style: GoogleFonts.roboto(
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.normal,
                 fontSize: 16,
               ),
             ),

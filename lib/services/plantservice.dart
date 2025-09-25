@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
@@ -56,10 +56,18 @@ class PlantService {
 
     if (namePlant != null) {
 
-      final String info = await geminiService.getPlantInformation(namePlant);
-      final savedPath = await saveImage(image);
-      Plant plant = decodeJson(info, savedPath);
-      return plant;
+      try {
+        final String info = await geminiService.getPlantInformation(namePlant);
+        final savedPath = await saveImage(image);
+        Plant plant = decodeJson(info, savedPath);
+        return plant;
+      } on GenerativeAIException catch (e) {
+
+        return null;
+      }
+
+
+
 
     }
     return null;
