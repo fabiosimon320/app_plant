@@ -8,6 +8,7 @@ import 'package:plant_app/providers/plantprovider.dart';
 import 'package:plant_app/services/plantservice.dart';
 import 'package:plant_app/widgets/myappbar.dart';
 import '../models/plant.dart';
+import '../providers/internet_check.dart';
 
 class AddPlantScreen extends ConsumerStatefulWidget {
   final PersistentTabController controller;
@@ -97,6 +98,9 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isOnline = ref.watch(internetChecker);
+
+
 
     return Scaffold(
       appBar: MyAppBar(title: 'Inserisci foto'),
@@ -110,13 +114,28 @@ class AddPlantScreenState extends ConsumerState<AddPlantScreen> {
             ),
           ),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: kToolbarHeight ), // lascia spazio all'AppBar
-              SizedBox(height: 35),
-              Center(
-                child: Container(
+          if(!isOnline)
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.signal_wifi_off, size: 80, color: Colors.grey),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Nessuna connessione internet'
+                  ),
+                ],
+              ),
+            ),
+
+          if(isOnline)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: kToolbarHeight ), // lascia spazio all'AppBar
+                SizedBox(height: 35),
+                Center(
+                  child: Container(
 
                   width: MediaQuery.of(context).size.width - 100,
                   height: (MediaQuery.of(context).size.width - 100) * 1.33,
