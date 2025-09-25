@@ -142,8 +142,6 @@ class _PlantScreenState extends ConsumerState<PlantScreen>{
                       await plantdatabase.deletePlant(currentPlant.id);
                     }
                   });
-
-
                 },
 
 
